@@ -7,6 +7,8 @@ from discord import app_commands
 from discord.utils import get
 import random
 from datetime import datetime,timedelta
+import ast
+import streamlit as st
 
 
 intents = discord.Intents.default()
@@ -27,9 +29,10 @@ RESULT=1
 @client.event
 async def on_ready():
     if not taskKeepCookie.is_running():
-      taskKeepCookie.start(guild)
+      taskKeepCookie.start()
 @tasks.loop(seconds=1)
-async def taskKeepCookie(guild):
+async def taskKeepCookie():
   global RESULT
-  RESULT=await getBasic(guild)
+  print(RESULT)
+  RESULT+=1
 client.run(st.secrets["botToken"])
